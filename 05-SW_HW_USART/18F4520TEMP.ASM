@@ -1,11 +1,11 @@
 ;******************************************************************************
-;                       	 SW/HW USART      			      *
+;                       	 SW/HW UART      			      *
 ;                       	 ===========				      *
 ;    This program showcases serial communication on the PICDEM2+ board,	      *
 ;    with two main tasks: firstly, it sends "Hello World" to a PC through     *
-;    USART, employing both hardware USART and manual signal generation        *
+;    UART, employing both hardware UART and manual signal generation        *
 ;    with delay functions. Secondly, it receives a character from "HTerm"     *
-;    or "PuTTY" via USART, utilizing both hardware USART and manual signal    *
+;    or "PuTTY" via UART, utilizing both hardware UART and manual signal    *
 ;    polling with delay functions, providing insights into various serial     *
 ;    communication methods.     			                      *
 ;    					                                      *
@@ -51,9 +51,9 @@
 	
 	
     ;Variables
-tx_buffer	equ		0x20	    ;USART Sende-BUffer
-rx_buffer	equ		0x21	    ;USART Empfangs-Buffer
-sw_count	equ		0x22	    ;Zaehler fuer Software-USART
+tx_buffer	equ		0x20	    ;UART Sende-BUffer
+rx_buffer	equ		0x21	    ;UART Empfangs-Buffer
+sw_count	equ		0x22	    ;Zaehler fuer Software-UART
 counter_l	equ		0x24
 	
 	
@@ -102,13 +102,13 @@ HighInt:
 ; The main program code is placed here.
 
 Main:    
-    ;call	    sw_sending_USART		;sending a string using sw_USART
-    ;call	    sw_sending_USART		;sending chars using hw_USART
+    ;call	    sw_sending_UART		;sending a string using sw_UART
+    ;call	    sw_sending_UART		;sending chars using hw_UART
     
     
     ;clrf	    rx_buffer
-    ;call	    sw_recieving_USART		;recieving a char using sw_USART
-    ;call	    hw_recieving_USART		;recieving a char using hw_USART
+    ;call	    sw_recieving_UART		;recieving a char using sw_UART
+    ;call	    hw_recieving_UART		;recieving a char using hw_UART
 
 	   
 
@@ -117,10 +117,10 @@ Main:
 
 
 ;*****************************************************************************
-	; Recieving USART HARDWARE! 9600N81 @ 4MHz
+	; Recieving UART HARDWARE! 9600N81 @ 4MHz
 ;*****************************************************************************   
 
-hw_recieving_USART
+hw_recieving_UART
 	
 ; Port configuration
     movlw	    0x00	    		; setting the Baud rate generators
@@ -148,10 +148,10 @@ check_inter_flag:
     
  
 ;*****************************************************************************
-	; Recieving USART SOFTWARE! 9600N81 @ 4MHz
+	; Recieving UART SOFTWARE! 9600N81 @ 4MHz
 ;*****************************************************************************   
  
-sw_recieving_USART
+sw_recieving_UART
     
 ; PORT configuration
     bsf		    TRIS_Uart_RX	;setting pin 7 PORTC as input
@@ -196,10 +196,10 @@ inner_h:
 
 	
 ;*****************************************************************************
-	; Sending USART HARDWARE! 9600N81 @ 4MHz
+	; Sending UART HARDWARE! 9600N81 @ 4MHz
 ;*****************************************************************************
 	
-hw_sending_USART	
+hw_sending_UART	
 	
 ; Port configuration
     movlw	    0x00	    		; setting the Baud rate generators
@@ -234,9 +234,9 @@ hw_sending_USART
 	
 	
 ;*****************************************************************************
-	; Sending USART Software! 9600N81 @ 4MHz
+	; Sending UART Software! 9600N81 @ 4MHz
 ;*****************************************************************************
-sw_sending_USART
+sw_sending_UART
 	
 	   bcf		    TRIS_Uart_TX	;setting pin 6 PORTC output
 	   bsf		    T_X			;pulling output to high
